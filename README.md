@@ -81,7 +81,7 @@ This class also save both raw Reddit posts data and computed results in the Mong
 * <b>Data Handling</b>:
   - “**MongoDBSinkComputed**” processes the incoming JsonObject directly, adding it to a MongoDB document. It also includes a timestamp of when it does this action
   - “**MongoDBSink**” extracts specific data (like the children array) from the JsonObject before constructing a MongoDB document
-## Pre-Requisites
+## Pre-requisites
 Before running this application, ensure you have the following installed:
 * Java (jdk-11 was used)
 * Apache Flink (Flink 1.16.1 was used)
