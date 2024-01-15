@@ -5,9 +5,7 @@
 3. Installation
 4. Configuration
 5. Usage
-6. How to Run
-7. Dependencies
-8. Additional Information
+6. Results Examples
 ## Code Description
 This application is designed to fetch, process, and store data from Reddit posts published in the "gaming" subreddit. The workflow involves fetching data from Reddit using the Reddit API, streaming it to Kafka, applying real-time computation with Apache Flink, and storing both raw and computed results in MongoDB.
 ### First step - RedditDataFetcher Class
@@ -113,3 +111,7 @@ These are the steps to run the Application, using the tools written in section "
 7. Run the first Flink job that will produce data from Reddit r/gaming subreddit just by running the '**Producer.java**' class.
 8. Run the second Flink job that will read, process and store data from Reddit r/gaming subreddit just by running the '**Producer.java**' class.
 9. You can check the results in your MongoDB through MongoDB Compass or CLI
+## Results Example
+![raw_1](https://i.ibb.co/7Y21Gfx/reddit-data-screenshot1.jpg)
+![raw_2](https://i.ibb.co/6wttKw1/reddit-data-screenshot2.jpg)
+![computed](https://i.ibb.co/qpvW89F/reddit-data-computed-screenshot.jpg)
