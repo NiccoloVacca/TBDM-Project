@@ -110,7 +110,7 @@ These are the steps to run the Application, using the tools written in section "
 5. Create a topic called '**reddit**' with the command: '_bin/kafka-topics.sh --create --topic reddit --bootstrap-server {machine_ip}:9092_' - If you want to change the name of the topic, remember to replace it also in the code
 6. If it doesn't exist, create a database named '**tbdm-project**' with MongoDB and 2 Collections in this DB named '**reddit-data**' and '**reddit-computed-data**' - If you want to change the name of the DB and the Collections, remember to replace them also in the code
 7. Run the first Flink job that will produce data from Reddit r/gaming subreddit just by running the '**Producer.java**' class.
-8. Run the second Flink job that will read, process and store data from Reddit r/gaming subreddit just by running the '**Producer.java**' class.
+8. Run the second Flink job that will read, process and store data from Reddit r/gaming subreddit just by running the '**Consumer.java**' class.
 9. You can check the results in your MongoDB through MongoDB Compass or CLI
 ## Results Example
 ![raw_1](https://i.ibb.co/7Y21Gfx/reddit-data-screenshot1.jpg)
