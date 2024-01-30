@@ -17,7 +17,7 @@ import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 import org.apache.flink.util.Collector;
 import org.apache.flink.api.common.typeinfo.TypeHint;
 
@@ -43,7 +43,7 @@ public class Consumer {
         properties.setProperty("bootstrap.servers", server);
         properties.setProperty("group.id", "flink-consumer-group");
         //Instantiate the Kafka consumer
-        FlinkKafkaConsumer011<String> kafkaConsumer = new FlinkKafkaConsumer011<>(inputTopic, new SimpleStringSchema(), properties);
+        FlinkKafkaConsumer<String> kafkaConsumer = new FlinkKafkaConsumer<>(inputTopic, new SimpleStringSchema(), properties);
 
         //Process data for each message received (with no time window)
         SingleOutputStreamOperator<JsonObject> processedDataStream = env.addSource(kafkaConsumer)
@@ -69,42 +69,42 @@ public class Consumer {
         //Find word with more occurrencies in reddit posts titles
         SingleOutputStreamOperator<JsonObject> globalMetricsDataStream = processedDataStream
                 .keyBy(new GlobalKeySelector())
-                .timeWindow(Time.seconds(3500))
+                .timeWindow(Time.seconds(500))
                 .aggregate(new GlobalMostFrequentWordAggregate());
         globalMetricsDataStream.print();
         globalMetricsDataStream.addSink(new MongoDBSinkComputed());   
         //Find total percentage of over18 content
         SingleOutputStreamOperator<JsonObject> over18PercentageDataStream = processedDataStream
         	    .keyBy(new GlobalKeySelector())
-        	    .timeWindow(Time.seconds(3500))
+        	    .timeWindow(Time.seconds(500))
         	    .process(new Over18PercentageProcessFunction());
         over18PercentageDataStream.print();
         over18PercentageDataStream.addSink(new MongoDBSinkComputed());
         //Find total percentage of original content
         SingleOutputStreamOperator<JsonObject> originalContentPercentageDataStream = processedDataStream
         	    .keyBy(new GlobalKeySelector())
-        	    .timeWindow(Time.seconds(3500))
+        	    .timeWindow(Time.seconds(500))
         	    .process(new OriginalContentPercentageProcessFunction());
         originalContentPercentageDataStream.print();
         originalContentPercentageDataStream.addSink(new MongoDBSinkComputed()); 
         //Find the author that wrote more posts
         SingleOutputStreamOperator<JsonObject> mostFrequentAuthorDataStream = processedDataStream
         	    .keyBy(new GlobalKeySelector())
-        	    .timeWindow(Time.seconds(3500))
+        	    .timeWindow(Time.seconds(500))
         	    .process(new MostFrequentAuthorProcessFunction());
         mostFrequentAuthorDataStream.print();
         mostFrequentAuthorDataStream.addSink(new MongoDBSinkComputed());
         //Find the most used domain in reddit posts retrieved
         SingleOutputStreamOperator<JsonObject> mostFrequentDomainDataStream = processedDataStream
         	    .keyBy(new GlobalKeySelector())
-        	    .timeWindow(Time.seconds(3500))
+        	    .timeWindow(Time.seconds(500))
         	    .process(new MostFrequentDomainProcessFunction());
         mostFrequentDomainDataStream.print();
         mostFrequentDomainDataStream.addSink(new MongoDBSinkComputed());
         //Find time between last post and second-last post
         SingleOutputStreamOperator<JsonObject> timeLastPostDataStream = processedDataStream
         	    .keyBy(new GlobalKeySelector())
-        	    .timeWindow(Time.seconds(3500))
+        	    .timeWindow(Time.seconds(500))
         	    .process(new TimeDiffProcessFunction());
         	    
         timeLastPostDataStream.print();
@@ -112,7 +112,7 @@ public class Consumer {
         //Find number of subreddit subscribers difference from the start to the end of the time window
         SingleOutputStreamOperator<JsonObject> subsLastStreamDataStream = processedDataStream
         	    .keyBy(new GlobalKeySelector())
-        	    .timeWindow(Time.seconds(3500))
+        	    .timeWindow(Time.seconds(500))
         	    .process(new SubsDiffProcessFunction());
         subsLastStreamDataStream.print();
         subsLastStreamDataStream.addSink(new MongoDBSinkComputed());
