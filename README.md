@@ -84,9 +84,9 @@ This class also save both raw Reddit posts data and computed results in the Mong
   - “**MongoDBSink**” extracts specific data (like the children array) from the JsonObject before constructing a MongoDB document
 ## Pre-requisites
 Before running this application, ensure you have the following installed:
-* Java (jdk-11 was used)
-* Apache Flink (Flink 1.16.1 was used)
-* Apache Kafka (Kafka 3.4.0 was used)
+* Java (jdk-8 was used)
+* Apache Flink (Flink 1.9.0 was used)
+* Apache Kafka (Kafka 2.1.1 was used)
 * MongoDB
 ## Installation
 1. Clone this Repository
