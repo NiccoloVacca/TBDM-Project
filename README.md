@@ -94,8 +94,10 @@ Before running this application, ensure you have the following installed:
 3. Install Apache Flink <a href="https://flink.apache.org/downloads/#apache-flink-1163">here</a>
 4. Install Apache Kafka <a href="https://kafka.apache.org/downloads">here</a>
 5. Install MongoDB <a href="https://www.mongodb.com/docs/v3.0/administration/install-on-linux/">here</a>
-6. Build and Compile the Project using Maven command "_mvn clean install_"
-7. Change Flink, Kafka and MongoDB server addresses; Change MongoDB details (DBs, collections); Optionally change subreddit name (now is r/gaming)
+6. Change Flink, Kafka and MongoDB server addresses; Change MongoDB details (DBs, collections); Optionally change subreddit name (now is r/gaming)
+7. Build and Compile the Project using Maven command "_mvn clean install_" for getting a JAR file where the Main Class is Producer and a JAR where the Main Class is Consumer
+8. Submit Producer JAR file into Flink platform
+9. Submit Consumer JAR file into Flink platform
 ## Configuration
 You will only have to change:
 * Flink and Kafka server addresses at '<a href="https://github.com/NiccoloVacca/TBDM-Project/blob/main/src/main/java/flink_kafka_project_Maven/Consumer.java">_Consumer.Java_</a>' -> **row 33** AND '<a href="https://github.com/NiccoloVacca/TBDM-Project/blob/main/src/main/java/flink_kafka_project_Maven/Producer.java">_Producer.Java_</a>' -> **row 20**
@@ -109,8 +111,8 @@ These are the steps to run the Application, using the tools written in section "
 4. Run Kafka with '_bin/kafka-server-start.sh config/server.properties_' command
 5. Create a topic called '**reddit**' with the command: '_bin/kafka-topics.sh --create --topic reddit --bootstrap-server {machine_ip}:9092_' - If you want to change the name of the topic, remember to replace it also in the code
 6. If it doesn't exist, create a database named '**tbdm-project**' with MongoDB and 2 Collections in this DB named '**reddit-data**' and '**reddit-computed-data**' - If you want to change the name of the DB and the Collections, remember to replace them also in the code
-7. Run the first Flink job that will produce data from Reddit r/gaming subreddit just by running the '**Producer.java**' class.
-8. Run the second Flink job that will read, process and store data from Reddit r/gaming subreddit just by running the '**Consumer.java**' class.
+7. Run the first Flink job that will produce data from Reddit r/gaming subreddit just by producing the JAR file out of '**Producer.java**' class.
+8. Run the second Flink job that will read, process and store data from Reddit r/gaming subreddit just by producing the JAR file out of '**Consumer.java**' class.
 9. You can check the results in your MongoDB through MongoDB Compass or CLI
 ## Results Example
 ![raw_1](https://i.ibb.co/7Y21Gfx/reddit-data-screenshot1.jpg)
